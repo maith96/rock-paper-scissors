@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.game-container{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
+.game-result,
+.selections{
+    display: flex;
+}
+.game-result p{
+    padding:0 20px;
+}
+.game-result span{
+    padding:0 10px;
+}
+
+.selections .selection{
+    padding:0 20px;   
+}
+
+.inactive{
+    display: none;
+}
