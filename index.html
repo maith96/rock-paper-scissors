@@ -4,32 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./index.js"></script>
+    <script src="./index.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="title">
-        <h1>Rock Paper Scissors</h1>
-    </div>
-    <div class="game-result">
-        <p>You <span class="player-score">0</span></p>
-        <p>:</p>
-        <p>Ai <span class="ai-score"></span></p>
-    </div>
-    <div class="game-selections">
-        <div class="player">
-            <p>Player</p>
-            <p class="selection"></p>
+    <div class="game-container">
+        <div class="title">
+            <h1>Rock Paper Scissors</h1>
         </div>
-        <div class="AI">
-            <p>AI</p>
-            <p class="selection"></p>
+        <div class="game-des">
+            <h3>First to hit 5 points is the winner</h3>
+        </div>
+
+        <div class="game-result">
+            <p>You <span class="player-score">0</span></p>
+            <p>:</p>
+            <p><span class="AI-score">0</span> Ai</p>
+        </div>
+        <div class="selections">
+            <div class="player selection">
+                <p>RPS</p>
+            </div>
+            <div class="AI selection">
+                <p>RPS</p>
+            </div>
+        </div>
+        <div class="selection-buttons">
+            <button data-value="rock" class="btn">Rock</button>
+            <button data-value="paper" class="btn">Paper</button>
+            <button data-value="scissor" class="btn">Scissor</button>
+        </div>
+
+        <div class="game-over">
+            <h2>You Lose</h2>
+            <button>Start new Game</button>
         </div>
     </div>
-    <div class="selection-container">
-        <button data-value="rock">Rock</button>
-        <button data-value="paper">Paper</button>
-        <button data-value="scissor">Scissor</button>
-    </div>
+    
     
 </body>
 </html>
