@@ -1,21 +1,103 @@
 const choices = ['Rock', 'Paper', 'Scissors']
 
+let player_score = 0
+let AI_score = 0
+
+const selectionButtons = document.querySelector('.selection-buttons')
+const buttons = document.querySelectorAll('.btn')
+const divGameOver = document.querySelector('.game-over')
+const result = document.querySelector('.game-over h2')
+const newGameBtn = document.querySelector('.game-over button')
+newGameBtn.addEventListener('click', ()=>newGame())
+setButtonState()
+
+selectionButtons.addEventListener('click', onPlayerMove)
+
+newGame()
+
+
+function updateSCores(matchRes){
+    console.log(matchRes);
+    if(matchRes === 'Win')
+        player_score += 1
+    else if(matchRes === 'Lose')
+        AI_score += 1
+    
+}
+
+function onPlayerMove(e){
+    let ps = e.target.getAttribute('data-value')
+    let cs = getComputerChoice().toLowerCase()
+
+    showSelections(ps, cs)
+
+    console.log(cs);
+
+    res = playRound(ps, cs)
+    
+    updateSCores(res)
+    showScores()
+
+    if(player_score >= 5 || AI_score >= 5)
+        gameOver(res)
+}
+
+function newGame(){
+    player_score = 0
+    AI_score = 0
+
+    selectionButtons.classList.remove('inactive')
+    setButtonState(true)
+    divGameOver.classList.add('inactive')
+
+    showScores()
+    showSelections('RPS', 'RPS')
+}
+
+function gameOver(res){
+    setButtonState(false)
+    selectionButtons.classList.add('inactive')
+    divGameOver.classList.remove('inactive')
+    
+    result.textContent = `You ${res}`
+
+}
+function setButtonState(state=true){
+    buttons.forEach(btn=>{
+        if(state == true)
+            btn.removeAttribute('disabled')
+        else
+            btn.setAttribute('disabled', state)
+    })
+}
+
+function showScores(){
+    const p_score = document.querySelector(".player-score")
+    const A_score = document.querySelector('.AI-score')
+
+    p_score.textContent = player_score
+    A_score.textContent = AI_score
+
+}
+function showSelections(ps, cs){
+    const playerSelection = document.querySelector('.player p')
+    const AISelection = document.querySelector('.AI p')
+
+    playerSelection.textContent = ps
+    AISelection.textContent = cs
+}
+
 function getComputerChoice(){
     
     return choices[Math.round(Math.random()*2)]
 }
 
-function playRound(playerSelection, computerSelection){
-    let ps = playerSelection.toLowerCase()
-    let cs = computerSelection.toLowerCase()
-    let player_res
+function playRound(ps, cs){
+    let player_res = ''
 
     if (ps === cs) {
-        print(ps)
-        print(cs)
         return 'It\'s a Draw!'
     }        
-
     else if(ps === 'rock')
         if (cs == 'scissors')
             player_res = 'Win'
@@ -28,39 +110,19 @@ function playRound(playerSelection, computerSelection){
         else
             player_res = 'Lose'
 
-    else if(ps === 'scissors')
+    else if(ps === 'scissor')
         if (cs == 'paper')
             player_res = 'Win'
         else    
             player_res = 'Lose'
-    
+    if(player_res.length == 0)
+        debugger
 
-    return player_res
-    
+        return player_res    
 }
 
-function game(){
-    let player_score = 0
-    let computer_score = 0
 
-    for(i=0; i<5; i++){
-        const playerSelection = prompt('Enter your guess:')
-        const computer_selection = getComputerChoice()
-        const res = playRound(playerSelection, computer_selection)
-        
-        player_score += (res == 'Win') && 1
-        const whoBeatsWho = (res == 'Lose')? `${computer_selection} beats ${playerSelection}`: `${playerSelection} beats ${computer_selection}`
-        const match_res = `You ${res}! ${whoBeatsWho}`
 
-        console.log(match_res);
-    }
 
-    computer_score = 5 - player_score
-    if(player_score > computer_score)
-        console.log(`You Win ${player_score}: ${computer_score}`)
-    else
-        console.log(`You Lose ${player_score}: ${computer_score}`)
-}
 
-game()
 
